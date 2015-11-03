@@ -3,11 +3,11 @@
 #include <Windows.h>
 #include <stdint.h>
 
-#define BUF_SIZE 512
+#define BUF_SIZE 512		// Buffer size used to copying data at once
 
 int main(int argc, char *argv[])
 {
-	if (argc != 4) {
+	if (argc != 4) {		
 		printf("Usage : 1st_Homework file1 file2 output_file\n");
 		return false;
 	}
@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 
 	char buf[BUF_SIZE];
 
-	HANDLE hFile1 = CreateFile(argv[1],
+	HANDLE hFile1 = CreateFile(argv[1],				// Creating handles for reading files.
 		GENERIC_READ,
 		NULL,
 		NULL,
@@ -32,20 +32,20 @@ int main(int argc, char *argv[])
 		FILE_SHARE_READ,
 		NULL);
 
-	if (hFile1 == INVALID_HANDLE_VALUE || hFile2 == INVALID_HANDLE_VALUE) {
+	if (hFile1 == INVALID_HANDLE_VALUE || hFile2 == INVALID_HANDLE_VALUE) {			// Exception Handling
 		printf("File not exists\n");
 		return false;
 	}
 
-	HANDLE hOutput = CreateFile(argv[3],
+	HANDLE hOutput = CreateFile(argv[3],		// Always creating new file. If file exists, it overwrites the file.
 		GENERIC_ALL,
 		NULL,
 		NULL,
-		CREATE_NEW,
+		CREATE_ALWAYS,
 		NULL,
 		NULL);
 	
-	if (hOutput == INVALID_HANDLE_VALUE) {
+	if (hOutput == INVALID_HANDLE_VALUE) {			// Exception Handling
 		printf("Cannot Create New File. Error : %u\n", GetLastError());
 		return false;
 	}
@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 		WriteFile(hOutput, buf, nIn, &nOut, NULL);
 	}
 	
-	CloseHandle(hFile1);
+	CloseHandle(hFile1);		// Deallocating handles
 	CloseHandle(hFile2);
 	CloseHandle(hOutput);
 
