@@ -14,9 +14,9 @@ int main(int argc, char *argv[])
 
 	DWORD nIn, nOut;
 
-	char buf[BUF_SIZE];
+	wchar_t buf[BUF_SIZE];
 
-	HANDLE hFile1 = CreateFile(argv[1],				// Creating handles for reading files.
+	HANDLE hFile1 = CreateFileA(argv[1],				// Creating handles for reading files.
 		GENERIC_READ,
 		NULL,
 		NULL,
@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 		FILE_SHARE_READ,
 		NULL);
 	
-	HANDLE hFile2 = CreateFile(argv[2],
+	HANDLE hFile2 = CreateFileA(argv[2],
 		GENERIC_READ,
 		NULL,
 		NULL,
@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
 		return false;
 	}
 
-	HANDLE hOutput = CreateFile(argv[3],		// Always creating new file. If file exists, it overwrites the file.
+	HANDLE hOutput = CreateFileA(argv[3],		// Always creating new file. If file exists, it overwrites the file.
 		GENERIC_ALL,
 		NULL,
 		NULL,
